@@ -7,7 +7,7 @@
 - Share to social apps
 - copy quote text
 - Auto fetching new quote
-- Pause timer
+- Timer which can be paused
 - Alert for events
 - Loading management
 
