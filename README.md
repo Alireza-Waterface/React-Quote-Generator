@@ -25,4 +25,4 @@
 - conditional rendering
 
 
-App available on: [https://waterface.iapp.ir](http://waterface.iapp.ir/)http://waterface.iapp.ir/
+App available on: http://waterface.iapp.ir/
