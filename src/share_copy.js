@@ -44,8 +44,8 @@ export const copyToClipboard = (quote, author, setAlert) => {
   
 	setTimeout(() => {
 		setAlert({
-			...alert,
 			message: null,
+			type: 'success',
 		})
 	}, 2000);
 };
