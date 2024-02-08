@@ -5,9 +5,9 @@ const BookmarkedQuotes = ({
 	setSavedQuotes,
 	showSavedQuotes,
 	setShowSavedQuotes,
-	setSaved,
-	setAlertMessage,
-	setAlertType,
+	setQuoteData,
+	quoteData,
+	setAlert,
 }) => {
 	const bookmarkedQuotes = JSON.parse(localStorage.getItem('savedQuotes')) || [];
 
@@ -15,12 +15,20 @@ const BookmarkedQuotes = ({
 		const updatedSavedQuotes = savedQuotes.filter((_, i) => i !== index);
 		setSavedQuotes(updatedSavedQuotes);
 		localStorage.setItem('savedQuotes', JSON.stringify(updatedSavedQuotes));
-		setSaved(false);
-		setAlertMessage('Quote removed');
-		setAlertType('error');
+		setQuoteData({
+			...quoteData,
+			saved: !quoteData.saved,
+		})
+		setAlert({
+			message: 'Quote removed',
+			type: 'error',
+		})
 	
 		setTimeout(() => {
-			setAlertMessage(null);
+			setAlert({
+				message: null,
+				type: 'success',
+			})
 		}, 1500);
 	}, [savedQuotes]);
 
