@@ -23,6 +23,3 @@
 - some method
 - Ternary operation
 - conditional rendering
-
-
-App available on: http://waterface.iapp.ir/
