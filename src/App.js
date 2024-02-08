@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import './App.css';
 import BookmarkedQuotes from './components/BookmarkedQuotes';
 import QuoteBox from './components/QuoteBox';
 import Alert from './components/Alert';
 import { shareOnTelegram, shareOnWhatsApp, copyToClipboard } from './share_copy';
+import './App.css';
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +40,7 @@ const App = () => {
 			setAlert({
 				message: 'Quote saved',
 				type: 'success',
-			})
+			});
 		} else {
 			const updatedSavedQuotes = savedQuotes.filter((quoteObj) => quoteObj.quote !== quoteData.quote);	
 			setSavedQuotes(updatedSavedQuotes);
@@ -49,25 +49,23 @@ const App = () => {
 			setAlert({
 				message: 'Quote removed',
 				type: 'error',
-			})
+			});
 		}
 		setTimeout(() => {
 			setAlert({
 				message: null,
 				type: 'success',
-			})
+			});
 		}, 1500);
 	}, [savedQuotes, quoteData.quote, quoteData.saved]);
 
-    const fetchNewQuote = () => {
+    const fetchNewQuote = async () => {
         setIsLoading(true);
         setError(null);
 
-        fetch('http://api.quotable.io/random')
+        await fetch('http://api.quotable.io/random')
             .then((res) => {
-                if (!res.ok) {
-                    throw new Error('Failed to fetch quote. Please try again in a while!');
-                }
+                if (!res.ok) throw new Error('Failed to fetch quote. Please try again in a while!');
                 return res.json();
             })
             .then((data) => {
@@ -111,9 +109,7 @@ const App = () => {
         return () => clearInterval(timer);
     }, [countdown, isPaused, error, showSavedQuotes]);
 
-    const togglePause = () => {
-        setIsPaused((prevIsPaused) => !prevIsPaused);
-    };  
+    const togglePause = () => setIsPaused((prevIsPaused) => !prevIsPaused);
 
     return (
 		<>
@@ -123,11 +119,8 @@ const App = () => {
 				<QuoteBox
 					isLoading={isLoading}
 					error={error}
-					quote={quoteData.quote}
-					author={quoteData.author}
-					tags={quoteData.tags}
+					quoteData={quoteData}
 					isPaused={isPaused}
-					saved={quoteData.saved}
 					countdown={countdown}
 					textInputRef={textInputRef}
 					showSavedQuotes={showSavedQuotes}
